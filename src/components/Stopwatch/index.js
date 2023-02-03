@@ -32,12 +32,12 @@ class Stopwatch extends Component {
   }
 
   reset = () => {
-    this.setState({count: 0})
+    this.setState({count: 0, isTimerStarted: false})
     clearInterval(this.timerId)
   }
 
   render() {
-    const {count} = this.state
+    const {count, isTimerStarted} = this.state
     const seconds = Math.floor(count % 60)
     const minutes = Math.floor(count / 60)
     const stringifiedMinutes = minutes > 9 ? minutes : `0${minutes}`
@@ -55,21 +55,20 @@ class Stopwatch extends Component {
             Timer
           </p>
           <h1>{`${stringifiedMinutes}:${stringifiedSeconds}`}</h1>
-          <div className="buttons-container">
-            <button
-              className="button-1"
-              type="button"
-              onClick={this.startCount}
-            >
-              Start
-            </button>
-            <button className="button-2" type="button" onClick={this.stopCount}>
-              Stop
-            </button>
-            <button className="button-3" type="button" onClick={this.reset}>
-              Restart
-            </button>
-          </div>
+          <button
+            className="button-1"
+            type="button"
+            onClick={this.startCount}
+            disabled={isTimerStarted}
+          >
+            Start
+          </button>
+          <button className="button-2" type="button" onClick={this.stopCount}>
+            Stop
+          </button>
+          <button className="button-3" type="button" onClick={this.reset}>
+            Restart
+          </button>
         </div>
       </div>
     )
